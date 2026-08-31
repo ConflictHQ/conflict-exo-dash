@@ -1,0 +1,40 @@
+# astrolift.toml — Astrolift app manifest
+# Reference: https://astrolift.dev/reference/astrolift-toml/
+# Detected framework: Docker
+#
+# Run `astro app register` after editing to register this app
+# on the platform.
+
+astrolift_version = 1
+name = "conflict-exo-dash"
+
+[app]
+slug = "conflict-exo-dash"
+display_name = "Exoplanet Archive"
+
+[environments.production]
+
+[[workloads]]
+name = "web"
+kind = "deployment"
+replicas = 1
+# Renders a Service + Ingress on a managed hostname. Without this the
+# app deploys private with no route — set false for internal services.
+is_public = true
+cpu_request = "100m"
+cpu_limit = "500m"
+memory_request = "128Mi"
+memory_limit = "256Mi"
+
+  [[workloads.containers]]
+  name = "web"
+  is_primary = true
+  port = 8080
+
+    [workloads.containers.healthcheck]
+    kind = "http"
+    value = "/health"
+    port = 8080
+
+    [workloads.containers.env]
+    PYTHONUNBUFFERED = "1"

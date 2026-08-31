@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Exoplanet Archive — Astrolift demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<div class="shell">
+  <aside class="side">
+    <div class="brand">Exoplanet Archive<small>conflict-exo-dash</small></div>
+    <nav>
+      <a class="is-active" href="#overview">Overview</a>
+      <a href="#discovery">Discovery</a>
+      <a href="#population">Population</a>
+      <a href="#nearest">Nearest systems</a>
+    </nav>
+    <footer>
+      <div>running on Astrolift</div>
+      <div id="f-version">version —</div>
+      <div id="f-pod">pod —</div>
+      <div id="f-uptime">uptime —</div>
+      <div style="margin-top:.6rem"><a href="/debug">/debug</a> · <a href="/selftest">/selftest</a></div>
+    </footer>
+  </aside>
+
+  <main class="main">
+    <div class="head">
+      <div>
+        <h1 id="overview">NASA Exoplanet Archive</h1>
+        <p>A confirmed-planet snapshot served from a SQLite file baked into the
+           container image. No database, no object store, no state — the cheapest
+           shape an Astrolift app can take.</p>
+      </div>
+      <span class="status status--ok" id="health">healthy</span>
+    </div>
+
+    <section class="tiles" id="tiles"></section>
+
+    <div class="grid">
+      <section class="panel span-12">
+        <div class="panel-head">
+          <h2 id="discovery">Confirmed planets by discovery year</h2>
+          <span class="hint">hover for the year</span>
+        </div>
+        <div class="panel-body"><div id="c-year"></div></div>
+      </section>
+
+      <section class="panel span-5">
+        <div class="panel-head">
+          <h2>How they were found</h2>
+          <button class="toggle" data-table="t-method">table</button>
+        </div>
+        <div class="panel-body">
+          <div id="c-method"></div>
+          <div id="t-method" hidden></div>
+        </div>
+      </section>
+
+      <section class="panel span-7">
+        <div class="panel-head">
+          <h2 id="population">Planet radius against orbital period</h2>
+          <span class="hint">log · log</span>
+        </div>
+        <div class="panel-body"><div id="c-scatter"></div></div>
+      </section>
+
+      <section class="panel span-12">
+        <div class="panel-head">
+          <h2 id="nearest">Nearest known systems</h2>
+          <span class="hint">by distance in parsecs</span>
+        </div>
+        <div class="panel-body"><div id="t-nearest"></div></div>
+      </section>
+    </div>
+  </main>
+</div>
+<div class="tip" id="tip"></div>
+<script src="/app.js"></script>
+</body>
+</html>
