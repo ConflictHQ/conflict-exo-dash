@@ -185,7 +185,10 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         path = urlparse(self.path).path
         if path == "/health":
-            return self._send(200, {"status": "ok"})
+            # Carry the running version so a rollout can be confirmed from the
+            # load balancer without exec-ing into the pod. /selftest touches the
+            # dataset and is too slow for a liveness probe; this stays constant-time.
+            return self._send(200, {"status": "ok", "version": VERSION})
         if path in ROUTES:
             try:
                 return self._send(200, ROUTES[path]())
